@@ -21,12 +21,12 @@ async function submitData() {
 
     try {
         // Send the user input to the backend API endpoint
-        const response = await fetch('/api/getlist', {
+        const response = await fetch('/api/function_app', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ input: userInput })
+            body: JSON.stringify({ inputData: userInput })  // Ensure this matches the key in Python
         });
 
         if (!response.ok) {
@@ -35,25 +35,10 @@ async function submitData() {
 
         // Parse the JSON response from the backend
         const data = await response.json();
-
-        // Call the backend function to save the result to the database
-        const saveResponse = await fetch('/api/saveToDatabase', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ result: data })
-        });
-
-        if (!saveResponse.ok) {
-            throw new Error(`HTTP error while saving! status: ${saveResponse.status}`);
-        }
-
-        alert("Data successfully submitted and saved to the database!");
+        console.log('Response from server:', data); // Handle the server response here
 
     } catch (error) {
         console.error('Error:', error);
         alert("An error occurred while submitting the data.");
     }
 }
-

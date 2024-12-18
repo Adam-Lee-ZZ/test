@@ -1,16 +1,4 @@
-const inputData = [];
-
-main();
-
-async function main() {
-    try {
-        await submitData();
-    } catch (error) {
-        console.error("Error in main function:", error);
-    }
-}
-
-async function submitData() {
+function submitData() {
     // Get user input from a text input field with id 'userInput'
     const userInput = document.getElementById('userInput').value;
 
@@ -21,7 +9,7 @@ async function submitData() {
 
     try {
         // Send the user input to the backend API endpoint
-        const response = await fetch('/api/function_app', {
+        const response = fetch('/api/function_app', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -34,7 +22,7 @@ async function submitData() {
         }
 
         // Parse the JSON response from the backend
-        const data = await response.json();
+        const data = response.json();
         console.log('Response from server:', data); // Handle the server response here
 
     } catch (error) {

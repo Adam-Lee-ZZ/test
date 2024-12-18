@@ -1,3 +1,4 @@
+module.exports
 document.addEventListener('DOMContentLoaded', () => {
     const inputElement = document.getElementById("inputField");
     const submitButton = document.getElementById("submitButton");

@@ -1,32 +1,37 @@
 function submitData() {
-    // Get user input from a text input field with id 'userInput'
-    const userInput = document.getElementById('userInput').value;
-
-    if (!userInput) {
-        alert("Please enter some text before submitting.");
+    alert("YYYYYYY")
+    const inputElement = document.getElementById("inputField");
+    if (!inputElement) {
+        console.error("Input field not found!");
         return;
     }
-
-    try {
-        // Send the user input to the backend API endpoint
-        const response = fetch('/api/function_app', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ inputData: userInput })  // Ensure this matches the key in Python
-        });
-
+  
+    const inputText = inputElement.value.trim();
+    if (inputText === "") {
+        alert("Please enter some text.");
+        return;
+    }
+  
+    // 發送 POST 請求
+    fetch('https://nice-plant-087bc3400.4.azurestaticapps.net/', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ inputData: inputText })
+    })
+    .then(response => {
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
-
-        // Parse the JSON response from the backend
-        const data = response.json();
-        console.log('Response from server:', data); // Handle the server response here
-
-    } catch (error) {
-        console.error('Error:', error);
-        alert("An error occurred while submitting the data.");
-    }
-}
+        return response.json(); // 假設返回的是 JSON
+    })
+    .then(data => {
+        // 在這裡跳轉到新的頁面
+        window.location.href = "https://you.tube.com"; // 修改為你希望跳轉的頁面 URL
+    })
+    .catch(error => {
+        alert("An error occurred: " + error.message);
+    });
+  }
+  
